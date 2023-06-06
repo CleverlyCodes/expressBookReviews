@@ -15,19 +15,10 @@ public_users.post("/register", (req,res) => {
   return res.send("User " + req.query.username + " has been created!");
 });
 
-let mockBookQuery = new Promise((resolve,reject) => {
-  setTimeout(() => {
-    resolve(books);
-},2000)});
-
 // Get the book list available in the shop
-public_users.get('/', function (req, res) {
+public_users.get('/', async function (req, res) {
   //Write your code here
-  mockBookQuery.then((data) => {
-    return res.send(JSON.stringify(allBooks));
-  }).error((err) => {
-    return res.status(400).json({message: err.message});
-  });
+  return res.send(JSON.stringify(await books));
 });
 
 // Get book details based on ISBN
